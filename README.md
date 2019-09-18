@@ -63,4 +63,65 @@ namespace TargetSum
     }
 }
 
+
+ACM VERSION
+
+
+
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TargetSum
+{
+    class Program
+    {
+        public static bool TargetSum(int n, int sum, List<int> numbers)
+        {
+            int current_index = 0;
+            //Algorithm -1 0 2 5 8 12 22 31
+            for (int k = 0; k <= n-1; k++)
+            {
+                current_index = numbers[k];
+                for (int m = k + 1; m < n; m++)
+                {
+                    if ((numbers[k] == numbers[m]))
+                    {
+                        //skip duplicates
+                        continue;
+                    }
+                    if (current_index == sum)
+                    {
+                        Console.WriteLine("Found Target Addends at index: " + k + " and " + (m - 1));
+                        Console.WriteLine(numbers[k] + " + " + numbers[m-1] + " is " + sum);
+                        return true;
+                    }
+                    current_index = numbers[k] + numbers[m];
+                }
+            }
+            return false;
+        }
+        static void Main(string[] args)
+        {
+            List<int> numbers = new List<int>();
+            List<string> str = new List<string>();
+            string s = Console.ReadLine();
+            str = s.Split(' ').ToList();
+            numbers = str.Select(int.Parse).ToList();
+            Console.WriteLine(" ");
+            int sum = Convert.ToInt32(Console.ReadLine());
+            if(!TargetSum(numbers.Count, sum, numbers))
+            {
+                Console.WriteLine("None.");
+            }
+            Console.ReadLine();
+        }
+    }
+}
+
 ```
+
