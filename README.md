@@ -123,5 +123,81 @@ namespace TargetSum
     }
 }
 
+
+
+
+Knapsack
+
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Knapsack
+{
+    class Program
+    {
+        public static bool Knapsack(int n, int sum, List<int> numbers)
+        {
+            int current_index = 0;
+            //Algorithm -1 0 2 5 8 12 22 31
+            for (int k = 0; k <= n - 1; k++)
+            {
+                current_index = numbers[k];
+                for (int m = k + 1; m < n; m++)
+                {
+                    if ((numbers[k] == numbers[m]))
+                    {
+                        //skip duplicates
+                        continue;
+                    }
+                    if (current_index == sum)
+                    {
+                        Console.WriteLine("Found Target Addends at index: " + k + " and " + (m - 1));
+                        Console.WriteLine(numbers[k] + " + " + numbers[m - 1] + " is " + sum);
+                        return true;
+                    }
+                    current_index = numbers[k] + numbers[m];
+                }
+            }
+            return false;
+        }
+        static void Main(string[] args)
+        {
+            int auto = 1;
+            List<int> numbers = new List<int>();
+            List<string> str = new List<string>();
+            List<string> parsed = new List<string>();
+            Dictionary<int, Tuple<int,int>> Items = new Dictionary<int, Tuple<int, int>>();
+            Console.WriteLine(" ");
+
+            Console.WriteLine("What is the maximum load? (W): ");
+            Console.WriteLine("How many items? (N): ");
+            Console.WriteLine("Type a continuous string with items seperated by commas and item-values seperated by a colon.");
+            Console.WriteLine("Hit enter when you are done.");
+            string s = Console.ReadLine();
+            str = s.Split(',').ToList();
+            for (int i = 0; i <= str.Count; i++)
+            {
+                Tuple<int, int> keynvalue;
+                
+                keynvalue = new Tuple<int, int>(Convert.ToInt32(str[i].Split(':').First()), Convert.ToInt32(str[i].Split(':').Last()));
+                Items.Add(auto, keynvalue);
+                auto++;
+            }
+            numbers = str.Select(int.Parse).ToList();
+            int sum = Convert.ToInt32(Console.ReadLine());
+            if (!Knapsack(numbers.Count, sum, numbers))
+            {
+                Console.WriteLine("None.");
+            }
+            Console.ReadLine();
+        }
+    }
+}
+
 ```
 
